@@ -1,0 +1,24 @@
+PODS:
+  - KVOController (1.2.0)
+  - PureLayout (3.1.2)
+  - Reveal-SDK (4)
+
+DEPENDENCIES:
+  - KVOController
+  - PureLayout
+  - Reveal-SDK (~> 4)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - KVOController
+    - PureLayout
+    - Reveal-SDK
+
+SPEC CHECKSUMS:
+  KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
+  PureLayout: 4634d0b61e3b5021166e8ec7c18e9e0ca0720c8b
+  Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
+
+PODFILE CHECKSUM: 662ced901b012925c91b5b8db068fe4abd37882a
+
+COCOAPODS: 1.5.3
