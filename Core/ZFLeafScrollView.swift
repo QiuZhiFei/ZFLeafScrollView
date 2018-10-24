@@ -41,7 +41,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   fileprivate let collectionView: ZFLeafCollectionView
   
   fileprivate var itemsCount: Int = 0 // item 数量
-  fileprivate var datasCount: Int = 0 // data 数量
+  public fileprivate(set) var datasCount: Int = 0 // data 数量
   fileprivate var startIndex: Int = 0
   
   fileprivate var willEndDraggingOffset: CGPoint = .zero
@@ -248,6 +248,10 @@ extension ZFLeafScrollView {
       return
     }
     self.scrollToItem(at: Int(round(row)) - 1, animated: true)
+  }
+  
+  func configure(currentIndex: Int) {
+    self.scrollToData(at: currentIndex, animated: false)
   }
   
 }

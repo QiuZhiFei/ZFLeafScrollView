@@ -79,6 +79,17 @@ class ViewController: UIViewController {
     previousBtn.autoPinEdge(.left, to: .right, of: nextBtn, withOffset: 20)
     previousBtn.autoPinEdge(.top, to: .bottom, of: leafView, withOffset: 20)
     previousBtn.autoSetDimensions(to: CGSize(width: 70, height: 50))
+    
+    
+    let randomBtn = UIButton(type: .custom)
+    randomBtn.setTitle("random", for: .normal)
+    randomBtn.setTitleColor(.black, for: .normal)
+    randomBtn.addTarget(self, action: #selector(ViewController.handleRandom), for: .touchUpInside)
+    
+    self.view.addSubview(randomBtn)
+    randomBtn.autoPinEdge(.left, to: .right, of: previousBtn, withOffset: 20)
+    randomBtn.autoPinEdge(.top, to: .bottom, of: leafView, withOffset: 20)
+    randomBtn.autoSetDimensions(to: CGSize(width: 70, height: 50))
   }
   
 }
@@ -91,6 +102,10 @@ fileprivate extension ViewController {
   
   @objc func handlePrevious() {
     self.leafView.previous()
+  }
+  
+  @objc func handleRandom() {
+    self.leafView.configure(currentIndex: 1)
   }
   
 }
