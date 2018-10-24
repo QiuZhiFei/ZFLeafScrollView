@@ -179,7 +179,14 @@ extension ZFLeafScrollView {
   //Todo: 暂时根据足够多数据实现循环
   func configure(datasCount: Int) {
     self.datasCount = datasCount
-    self.itemsCount = Int(Int16.max)
+
+    // 取最大的偶数
+    var times = Int(Int16.max) / datasCount
+    if times % 2 != 0 {
+      times = times < 2 ? times : (times - 1)
+    }
+      
+    self.itemsCount = times * datasCount
   }
   
 }

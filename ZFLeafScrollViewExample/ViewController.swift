@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     
     leafView.layer.borderColor = UIColor.red.cgColor
     leafView.layer.borderWidth = 1
-    leafView.configure(datasCount: 3)
+    leafView.configure(datasCount: 187)
     
     self.view.addSubview(leafView)
     let height = self.view.bounds.width - 40
