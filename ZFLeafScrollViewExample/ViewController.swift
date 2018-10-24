@@ -37,9 +37,9 @@ class ViewController: UIViewController {
       debugPrint("did select \(index)")
     }
     leafView.scrollingEndedHandler = {
-      [weak self] (index, oldIndex) in
+      [weak self] (index, oldIndex, direction) in
       guard let `self` = self else { return }
-      debugPrint("\(oldIndex) to \(index)")
+      debugPrint("\(direction): \(oldIndex) to \(index)")
     }
     leafView.displayItemHandler = {
       [weak self] (cell, index) in

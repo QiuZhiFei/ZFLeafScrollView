@@ -14,11 +14,22 @@ fileprivate let minimumLineSpacing: CGFloat = 0
 fileprivate let contentInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
 fileprivate let ZFLeafScrollViewCellID = "ZFLeafScrollViewCellID"
 
+
+
+/// 移动方向
+///
+/// - left:   向左移
+/// - right:  向右移
+enum ZFLeafDirection {
+  case left
+  case right
+}
+
 class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
   
   public var displayItemHandler: ((_ cell: ZFLeafScrollViewCell, _ index: Int) -> ())?
   public var didSelectItemHandler: ((_ index: Int) -> ())?
-  public var scrollingEndedHandler: ((_ index: Int, _ oldIndex: Int) -> ())?
+  public var scrollingEndedHandler: ((_ index: Int, _ oldIndex: Int, _ direction: ZFLeafDirection) -> ())?
   
   public var currentIndex: Int {
     let row = (collectionView.contentOffset.x + contentInset.left)/self.flowLayout.itemSize.width
@@ -32,6 +43,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   fileprivate var itemsCount: Int = 0 // item 数量
   fileprivate var datasCount: Int = 0 // data 数量
   
+  fileprivate var willEndDraggingOffset: CGPoint = .zero
   fileprivate var willBeginDraggingOffset: CGPoint = .zero
   fileprivate var oldIndex: Int = 0
   
@@ -112,6 +124,8 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   }
   
   public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    self.willEndDraggingOffset = scrollView.contentOffset
+    
     let pointee = targetContentOffset.pointee
     
     if self.willBeginDraggingOffset.x < -contentInset.left {
@@ -249,9 +263,16 @@ fileprivate extension ZFLeafScrollView {
   
   @objc func scrollingEnded() {
     let currentIndex = self.currentIndex
-    if let handler = self.scrollingEndedHandler {
-      handler(currentIndex, self.oldIndex)
+    
+    var direction = ZFLeafDirection.left
+    if self.willEndDraggingOffset.x > self.collectionView.contentOffset.x {
+      direction = .right
     }
+    
+    if let handler = self.scrollingEndedHandler {
+      handler(currentIndex, self.oldIndex, direction)
+    }
+    
     self.oldIndex = currentIndex
   }
   
