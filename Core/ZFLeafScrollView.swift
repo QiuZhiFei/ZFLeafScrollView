@@ -85,8 +85,6 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
     if let handler = self.didSelectItemHandler {
       handler(index)
     }
-    
-    debugPrint("content offset == \(collectionView.contentOffset.x)")
   }
   
   //MARK: UIScrollViewDelegate

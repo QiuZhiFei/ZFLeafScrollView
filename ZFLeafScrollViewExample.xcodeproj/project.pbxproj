@@ -12,6 +12,13 @@
 		0BB0F020217F46D10022BBBB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F01E217F46D10022BBBB /* Main.storyboard */; };
 		0BB0F022217F46D20022BBBB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F021217F46D20022BBBB /* Assets.xcassets */; };
 		0BB0F025217F46D20022BBBB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F023217F46D20022BBBB /* LaunchScreen.storyboard */; };
+		0BB0F030218015870022BBBB /* ZFLeafScrollViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0F02D218015870022BBBB /* ZFLeafScrollViewCell.swift */; };
+		0BB0F031218015870022BBBB /* ZFLeafLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0F02E218015870022BBBB /* ZFLeafLayout.swift */; };
+		0BB0F032218015870022BBBB /* ZFLeafScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0F02F218015870022BBBB /* ZFLeafScrollView.swift */; };
+		0BB0F037218015BC0022BBBB /* ZFCycleScrollItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0F033218015BC0022BBBB /* ZFCycleScrollItemView.swift */; };
+		0BB0F038218015BC0022BBBB /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F034218015BC0022BBBB /* 0.jpg */; };
+		0BB0F039218015BC0022BBBB /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F035218015BC0022BBBB /* 2.jpg */; };
+		0BB0F03A218015BC0022BBBB /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F036218015BC0022BBBB /* 1.jpg */; };
 		784DAC833B276DAF565CECE7 /* Pods_ZFLeafScrollViewExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F111EA7C6A2CC5E5158D46 /* Pods_ZFLeafScrollViewExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +30,13 @@
 		0BB0F021217F46D20022BBBB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BB0F024217F46D20022BBBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0BB0F026217F46D20022BBBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BB0F02D218015870022BBBB /* ZFLeafScrollViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZFLeafScrollViewCell.swift; sourceTree = "<group>"; };
+		0BB0F02E218015870022BBBB /* ZFLeafLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZFLeafLayout.swift; sourceTree = "<group>"; };
+		0BB0F02F218015870022BBBB /* ZFLeafScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZFLeafScrollView.swift; sourceTree = "<group>"; };
+		0BB0F033218015BC0022BBBB /* ZFCycleScrollItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZFCycleScrollItemView.swift; sourceTree = "<group>"; };
+		0BB0F034218015BC0022BBBB /* 0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0.jpg; sourceTree = "<group>"; };
+		0BB0F035218015BC0022BBBB /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		0BB0F036218015BC0022BBBB /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		2E6C5DE745699A47E06BE26F /* Pods-ZFLeafScrollViewExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFLeafScrollViewExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample.debug.xcconfig"; sourceTree = "<group>"; };
 		EB2B2419F434044702674967 /* Pods-ZFLeafScrollViewExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFLeafScrollViewExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample.release.xcconfig"; sourceTree = "<group>"; };
 		F3F111EA7C6A2CC5E5158D46 /* Pods_ZFLeafScrollViewExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZFLeafScrollViewExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,8 +75,13 @@
 		0BB0F019217F46D10022BBBB /* ZFLeafScrollViewExample */ = {
 			isa = PBXGroup;
 			children = (
+				0BB0F02C218015870022BBBB /* Core */,
 				0BB0F01A217F46D10022BBBB /* AppDelegate.swift */,
 				0BB0F01C217F46D10022BBBB /* ViewController.swift */,
+				0BB0F034218015BC0022BBBB /* 0.jpg */,
+				0BB0F036218015BC0022BBBB /* 1.jpg */,
+				0BB0F035218015BC0022BBBB /* 2.jpg */,
+				0BB0F033218015BC0022BBBB /* ZFCycleScrollItemView.swift */,
 				0BB0F01E217F46D10022BBBB /* Main.storyboard */,
 				0BB0F021217F46D20022BBBB /* Assets.xcassets */,
 				0BB0F023217F46D20022BBBB /* LaunchScreen.storyboard */,
@@ -70,6 +89,16 @@
 			);
 			path = ZFLeafScrollViewExample;
 			sourceTree = "<group>";
+		};
+		0BB0F02C218015870022BBBB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				0BB0F02D218015870022BBBB /* ZFLeafScrollViewCell.swift */,
+				0BB0F02E218015870022BBBB /* ZFLeafLayout.swift */,
+				0BB0F02F218015870022BBBB /* ZFLeafScrollView.swift */,
+			);
+			path = Core;
+			sourceTree = SOURCE_ROOT;
 		};
 		B7D45D9A285E772316A7C76A /* Frameworks */ = {
 			isa = PBXGroup;
@@ -148,7 +177,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BB0F038218015BC0022BBBB /* 0.jpg in Resources */,
 				0BB0F025217F46D20022BBBB /* LaunchScreen.storyboard in Resources */,
+				0BB0F039218015BC0022BBBB /* 2.jpg in Resources */,
+				0BB0F03A218015BC0022BBBB /* 1.jpg in Resources */,
 				0BB0F022217F46D20022BBBB /* Assets.xcassets in Resources */,
 				0BB0F020217F46D10022BBBB /* Main.storyboard in Resources */,
 			);
@@ -213,7 +245,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB0F01D217F46D10022BBBB /* ViewController.swift in Sources */,
+				0BB0F037218015BC0022BBBB /* ZFCycleScrollItemView.swift in Sources */,
+				0BB0F032218015870022BBBB /* ZFLeafScrollView.swift in Sources */,
+				0BB0F030218015870022BBBB /* ZFLeafScrollViewCell.swift in Sources */,
 				0BB0F01B217F46D10022BBBB /* AppDelegate.swift in Sources */,
+				0BB0F031218015870022BBBB /* ZFLeafLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AYZZSQA769;
 				INFOPLIST_FILE = ZFLeafScrollViewExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -379,6 +416,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AYZZSQA769;
 				INFOPLIST_FILE = ZFLeafScrollViewExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
