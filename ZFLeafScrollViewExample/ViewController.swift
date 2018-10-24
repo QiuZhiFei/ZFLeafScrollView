@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     leafView.layer.borderColor = UIColor.red.cgColor
     leafView.layer.borderWidth = 1
     leafView.configure(datasCount: 187)
+    leafView.configure(startIndex: 2)
     
     self.view.addSubview(leafView)
     let height = self.view.bounds.width - 40
@@ -56,6 +57,11 @@ class ViewController: UIViewController {
         itemView.configure(text: "\(index)")
       }
     }
+  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
+    self.leafView.scrollToItem(at: 2, animated: true)
   }
   
 }

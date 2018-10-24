@@ -42,6 +42,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   
   fileprivate var itemsCount: Int = 0 // item 数量
   fileprivate var datasCount: Int = 0 // data 数量
+  fileprivate var startIndex: Int = 0
   
   fileprivate var willEndDraggingOffset: CGPoint = .zero
   fileprivate var willBeginDraggingOffset: CGPoint = .zero
@@ -168,8 +169,6 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
     let nextPointeeX
       = flowLayout.itemSize.width * CGFloat(next) - contentInset.left
     targetContentOffset.pointee = CGPoint(x: nextPointeeX, y: targetContentOffset.pointee.y)
-    
-    
   }
   
 }
@@ -187,6 +186,24 @@ extension ZFLeafScrollView {
     }
       
     self.itemsCount = times * datasCount
+  }
+  
+  func configure(startIndex: Int) {
+    self.startIndex = startIndex
+  }
+  
+  func scrollToItem(at index: Int, animated: Bool) {
+    if index < 0 {
+      return
+    }
+    if index > self.datasCount - 1 {
+      return
+    }
+    
+    let indexPath = IndexPath(item: itemsCount / 2 + index, section: 0)
+    collectionView.scrollToItem(at: indexPath,
+                                at: .centeredVertically,
+                                animated: animated)
   }
   
 }
@@ -234,7 +251,7 @@ fileprivate extension ZFLeafScrollView {
                   return
                 }
                 self.kvoController.unobserve(self.collectionView)
-                self.scrollToCenter()
+                self.scrollToStartIndex()
     }
   }
   
@@ -242,26 +259,9 @@ fileprivate extension ZFLeafScrollView {
     return indexPath.row % self.datasCount
   }
   
-  func scrollToItem(at index: Int) {
-    var index = index
-    if (index >= itemsCount) {
-      index = itemsCount / 2
-      let indexPath = IndexPath(row: index, section: 0)
-      collectionView.scrollToItem(at: indexPath,
-                                  at: .centeredVertically,
-                                  animated: false)
-      return;
-    }
-    
-    let indexPath = IndexPath(row: index, section: 0)
-    collectionView.scrollToItem(at: indexPath,
-                                at: .centeredVertically,
-                                animated: true)
-  }
-  
-  func scrollToCenter() {
-    if itemsCount > 0 {
-      let indexPath = IndexPath(item: itemsCount / 2, section: 0)
+  func scrollToStartIndex() {
+    if itemsCount > 0, self.startIndex < self.datasCount - 1 {
+      let indexPath = IndexPath(item: itemsCount / 2 + self.startIndex, section: 0)
       collectionView.scrollToItem(at: indexPath,
                                   at: .centeredHorizontally,
                                   animated: false)
