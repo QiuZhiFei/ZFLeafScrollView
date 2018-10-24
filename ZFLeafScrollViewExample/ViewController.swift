@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     
     leafView.layer.borderColor = UIColor.red.cgColor
     leafView.layer.borderWidth = 1
-    leafView.configure(datasCount: 187)
+    leafView.configure(datasCount: 30)
     leafView.configure(startIndex: 2)
     
     self.view.addSubview(leafView)
@@ -57,12 +57,40 @@ class ViewController: UIViewController {
         itemView.configure(text: "\(index)")
       }
     }
-  }
-  
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesBegan(touches, with: event)
-    self.leafView.scrollToItem(at: 2, animated: true)
+    
+    
+    let nextBtn = UIButton(type: .custom)
+    nextBtn.setTitle("next", for: .normal)
+    nextBtn.setTitleColor(.black, for: .normal)
+    nextBtn.addTarget(self, action: #selector(ViewController.handleNext), for: .touchUpInside)
+    
+    self.view.addSubview(nextBtn)
+    nextBtn.autoPinEdge(toSuperviewEdge: .left)
+    nextBtn.autoPinEdge(.top, to: .bottom, of: leafView, withOffset: 20)
+    nextBtn.autoSetDimensions(to: CGSize(width: 50, height: 50))
+    
+    
+    let previousBtn = UIButton(type: .custom)
+    previousBtn.setTitle("previous", for: .normal)
+    previousBtn.setTitleColor(.black, for: .normal)
+    previousBtn.addTarget(self, action: #selector(ViewController.handlePrevious), for: .touchUpInside)
+    
+    self.view.addSubview(previousBtn)
+    previousBtn.autoPinEdge(.left, to: .right, of: nextBtn, withOffset: 20)
+    previousBtn.autoPinEdge(.top, to: .bottom, of: leafView, withOffset: 20)
+    previousBtn.autoSetDimensions(to: CGSize(width: 70, height: 50))
   }
   
 }
 
+fileprivate extension ViewController {
+  
+  @objc func handleNext() {
+    self.leafView.next()
+  }
+  
+  @objc func handlePrevious() {
+    self.leafView.previous()
+  }
+  
+}

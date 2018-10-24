@@ -190,9 +190,10 @@ extension ZFLeafScrollView {
   
   func configure(startIndex: Int) {
     self.startIndex = startIndex
+    self.oldIndex = startIndex
   }
   
-  func scrollToItem(at index: Int, animated: Bool) {
+  func scrollToData(at index: Int, animated: Bool) {
     if index < 0 {
       return
     }
@@ -200,10 +201,53 @@ extension ZFLeafScrollView {
       return
     }
     
-    let indexPath = IndexPath(item: itemsCount / 2 + index, section: 0)
+    let item = self.itemsCount / 2 + index
+    let indexPath = IndexPath(item: item, section: 0)
     collectionView.scrollToItem(at: indexPath,
-                                at: .centeredVertically,
+                                at: .centeredHorizontally,
                                 animated: animated)
+  }
+  
+  func next() {
+    if self.collectionView.isTracking {
+      return
+    }
+    
+    if self.collectionView.isDragging {
+      return
+    }
+    
+    if self.collectionView.isDecelerating {
+      return
+    }
+    
+    let row = (collectionView.contentOffset.x + contentInset.left)/self.flowLayout.itemSize.width
+    // 偏移 0.1，不触发 => 用户快速 next
+    if abs(row - round(row)) > 0.1 {
+      return
+    }
+    self.scrollToItem(at: Int(round(row)) + 1, animated: true)
+  }
+  
+  func previous() {
+    if self.collectionView.isTracking {
+      return
+    }
+    
+    if self.collectionView.isDragging {
+      return
+    }
+    
+    if self.collectionView.isDecelerating {
+      return
+    }
+    
+    let row = (collectionView.contentOffset.x + contentInset.left)/self.flowLayout.itemSize.width
+    // 偏移 0.1，不触发 => 用户快速 next
+    if abs(row - round(row)) > 0.1 {
+      return
+    }
+    self.scrollToItem(at: Int(round(row)) - 1, animated: true)
   }
   
 }
@@ -266,6 +310,21 @@ fileprivate extension ZFLeafScrollView {
                                   at: .centeredHorizontally,
                                   animated: false)
     }
+  }
+  
+  // 移动到 item
+  func scrollToItem(at index: Int, animated: Bool) {
+    if index < 0 {
+      return
+    }
+    if index > self.itemsCount - 1 {
+      return
+    }
+    
+    let indexPath = IndexPath(item: index, section: 0)
+    collectionView.scrollToItem(at: indexPath,
+                                at: .centeredHorizontally,
+                                animated: animated)
   }
   
   @objc func scrollingEnded() {
