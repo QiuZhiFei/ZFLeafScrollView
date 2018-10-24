@@ -122,7 +122,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
       return
     }
     
-    if fabs(pointee.x - self.willBeginDraggingOffset.x) < self.flowLayout.itemSize.width / 2.0 {
+    if abs(pointee.x - self.willBeginDraggingOffset.x) < self.flowLayout.itemSize.width / 2.0 {
       return
     }
     

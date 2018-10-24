@@ -82,13 +82,13 @@ class ZFLeafLayout: UICollectionViewFlowLayout {
         shouldBeChosenIndex = i
         continue
       }
-      if (fabs(attributes.frame.midX - proposedCenterX) < fabs(currentChosenAttributes.frame.midX - proposedCenterX)) {
+      if (abs(attributes.frame.midX - proposedCenterX) < abs(currentChosenAttributes.frame.midX - proposedCenterX)) {
         shouldBeChosenAttributes = attributes
         shouldBeChosenIndex = i
       }
     }
     // Adjust the case where a quick but small scroll occurs.
-    if (fabs(collectionView.contentOffset.x - proposedContentOffset.x) < itemSize.width) {
+    if (abs(collectionView.contentOffset.x - proposedContentOffset.x) < itemSize.width) {
       if velocity.x < -0.3 {
         shouldBeChosenIndex = shouldBeChosenIndex > 0 ? shouldBeChosenIndex - 1 : shouldBeChosenIndex
       } else if velocity.x > 0.3 {

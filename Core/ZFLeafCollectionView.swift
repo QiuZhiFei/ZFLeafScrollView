@@ -45,7 +45,7 @@ fileprivate extension ZFLeafCollectionView {
   
     func getHitTest(_ point: CGPoint, with event: UIEvent?, in view: UIView?) -> UIView? {
       if let layout = self.collectionViewLayout as? ZFLeafLayout, let willBeginDraggingOffset = self.willBeginDraggingOffset {
-        let distance = fabs(self.contentOffset.x - willBeginDraggingOffset.x)
+        let distance = abs(self.contentOffset.x - willBeginDraggingOffset.x)
         if distance > layout.itemSize.width / 2.0 {
           return nil
         }
