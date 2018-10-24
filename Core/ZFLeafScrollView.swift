@@ -27,7 +27,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   }
   
   fileprivate let flowLayout = ZFLeafLayout()
-  fileprivate let collectionView: UICollectionView
+  fileprivate let collectionView: ZFLeafCollectionView
   
   fileprivate var itemsCount: Int = 0 // item 数量
   fileprivate var datasCount: Int = 0 // data 数量
@@ -38,9 +38,9 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
     flowLayout.scrollDirection = .horizontal
     flowLayout.minimumLineSpacing = minimumLineSpacing
     
-    collectionView = UICollectionView(frame: .zero,
-                                      collectionViewLayout: flowLayout)
-    
+    collectionView = ZFLeafCollectionView(frame: .zero,
+                                          collectionViewLayout: flowLayout)
+    collectionView.delaysContentTouches = false
     super.init(frame: frame)
     
     setup()
@@ -106,6 +106,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   }
   
   public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    self.collectionView.configure(willBeginDraggingOffset: scrollView.contentOffset)
     self.willBeginDraggingOffset = scrollView.contentOffset
   }
   
@@ -118,6 +119,10 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
     if self.willBeginDraggingOffset.x > self.collectionView.contentSize.width - self.collectionView.bounds.width + contentInset.right {
       // 最右侧滑动
+      return
+    }
+    
+    if fabs(pointee.x - self.willBeginDraggingOffset.x) < self.flowLayout.itemSize.width / 2.0 {
       return
     }
     
@@ -160,7 +165,6 @@ extension ZFLeafScrollView {
   func configure(datasCount: Int) {
     self.datasCount = datasCount
     self.itemsCount = Int(Int16.max)
-//    self.itemsCount = 3 * datasCount
   }
   
 }

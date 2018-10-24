@@ -19,6 +19,7 @@
 		0BB0F038218015BC0022BBBB /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F034218015BC0022BBBB /* 0.jpg */; };
 		0BB0F039218015BC0022BBBB /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F035218015BC0022BBBB /* 2.jpg */; };
 		0BB0F03A218015BC0022BBBB /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0F036218015BC0022BBBB /* 1.jpg */; };
+		0BB0F03C21801D440022BBBB /* ZFLeafCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0F03B21801D440022BBBB /* ZFLeafCollectionView.swift */; };
 		784DAC833B276DAF565CECE7 /* Pods_ZFLeafScrollViewExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F111EA7C6A2CC5E5158D46 /* Pods_ZFLeafScrollViewExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		0BB0F034218015BC0022BBBB /* 0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0.jpg; sourceTree = "<group>"; };
 		0BB0F035218015BC0022BBBB /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		0BB0F036218015BC0022BBBB /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		0BB0F03B21801D440022BBBB /* ZFLeafCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZFLeafCollectionView.swift; sourceTree = "<group>"; };
 		2E6C5DE745699A47E06BE26F /* Pods-ZFLeafScrollViewExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFLeafScrollViewExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample.debug.xcconfig"; sourceTree = "<group>"; };
 		EB2B2419F434044702674967 /* Pods-ZFLeafScrollViewExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFLeafScrollViewExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample.release.xcconfig"; sourceTree = "<group>"; };
 		F3F111EA7C6A2CC5E5158D46 /* Pods_ZFLeafScrollViewExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZFLeafScrollViewExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 				0BB0F02D218015870022BBBB /* ZFLeafScrollViewCell.swift */,
 				0BB0F02E218015870022BBBB /* ZFLeafLayout.swift */,
 				0BB0F02F218015870022BBBB /* ZFLeafScrollView.swift */,
+				0BB0F03B21801D440022BBBB /* ZFLeafCollectionView.swift */,
 			);
 			path = Core;
 			sourceTree = SOURCE_ROOT;
@@ -250,6 +253,7 @@
 				0BB0F030218015870022BBBB /* ZFLeafScrollViewCell.swift in Sources */,
 				0BB0F01B217F46D10022BBBB /* AppDelegate.swift in Sources */,
 				0BB0F031218015870022BBBB /* ZFLeafLayout.swift in Sources */,
+				0BB0F03C21801D440022BBBB /* ZFLeafCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
