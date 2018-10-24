@@ -18,7 +18,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   
   public var displayItemHandler: ((_ cell: ZFLeafScrollViewCell, _ index: Int) -> ())?
   public var didSelectItemHandler: ((_ index: Int) -> ())?
-  public var scrollingEndedHandler: ((_ index: Int) -> ())?
+  public var scrollingEndedHandler: ((_ index: Int, _ oldIndex: Int) -> ())?
   
   public var currentIndex: Int {
     let row = (collectionView.contentOffset.x + contentInset.left)/self.flowLayout.itemSize.width
@@ -33,6 +33,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   fileprivate var datasCount: Int = 0 // data 数量
   
   fileprivate var willBeginDraggingOffset: CGPoint = .zero
+  fileprivate var oldIndex: Int = 0
   
   override init(frame: CGRect) {
     flowLayout.scrollDirection = .horizontal
@@ -247,9 +248,11 @@ fileprivate extension ZFLeafScrollView {
   }
   
   @objc func scrollingEnded() {
+    let currentIndex = self.currentIndex
     if let handler = self.scrollingEndedHandler {
-      handler(self.currentIndex)
+      handler(currentIndex, self.oldIndex)
     }
+    self.oldIndex = currentIndex
   }
   
 }
