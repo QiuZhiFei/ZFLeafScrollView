@@ -254,6 +254,10 @@ extension ZFLeafScrollView {
     self.scrollToData(at: currentIndex, animated: false)
   }
   
+  func reloadData() {
+    self.collectionView.reloadData()
+  }
+  
 }
 
 fileprivate extension ZFLeafScrollView {
