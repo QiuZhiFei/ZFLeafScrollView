@@ -200,6 +200,9 @@ extension ZFLeafScrollView {
     if index > self.datasCount - 1 {
       return
     }
+    if index == self.currentIndex {
+      return
+    }
     
     let item = self.itemsCount / 2 + index
     let indexPath = IndexPath(item: item, section: 0)
@@ -251,7 +254,11 @@ extension ZFLeafScrollView {
   }
   
   func configure(currentIndex: Int) {
+    if self.currentIndex == currentIndex {
+      return
+    }
     self.scrollToData(at: currentIndex, animated: false)
+    self.oldIndex = currentIndex
   }
   
   func reloadData() {
