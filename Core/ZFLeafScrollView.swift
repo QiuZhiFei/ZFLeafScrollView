@@ -37,6 +37,18 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
     return index
   }
   
+  public var isTracking: Bool {
+    return collectionView.isTracking
+  }
+  
+  public var isDragging: Bool {
+    return collectionView.isDragging
+  }
+  
+  public var isDecelerating: Bool {
+    return collectionView.isDecelerating
+  }
+  
   fileprivate let flowLayout = ZFLeafLayout()
   fileprivate let collectionView: ZFLeafCollectionView
   
