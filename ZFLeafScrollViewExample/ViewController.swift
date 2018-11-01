@@ -12,16 +12,32 @@ import KVOController
 
 class ViewController: UIViewController {
   
-  fileprivate let datasCount = 30
-  
-  fileprivate let leafView = ZFLeafScrollView(frame: .zero, contentInset: UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25))
+  fileprivate var leafView: ZFLeafScrollView?
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    leafView.layer.borderColor = UIColor.red.cgColor
-    leafView.layer.borderWidth = 1
+    
+    ////////////////////////////////////////////
+    
+    let datasCount = 30
+    let contentInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
+    
+    let flowLayout = ZFLeafLayout()
+    flowLayout.scrollDirection = .horizontal
+    flowLayout.minimumLineSpacing = 0
+    
+    let leafView = ZFLeafScrollView(frame: .zero,
+                                    contentInset: contentInset,
+                                    flowLayout: flowLayout)
+    self.leafView = leafView
+    
     leafView.configure(datasCount: datasCount)
     leafView.configure(startIndex: 2)
+    
+    ////////////////////////////////////////////
+    
+    leafView.layer.borderColor = UIColor.red.cgColor
+    leafView.layer.borderWidth = 1
     
     self.view.addSubview(leafView)
     let height = self.view.bounds.width - 40
@@ -97,15 +113,15 @@ class ViewController: UIViewController {
 fileprivate extension ViewController {
   
   @objc func handleNext() {
-    self.leafView.next()
+    self.leafView?.next()
   }
   
   @objc func handlePrevious() {
-    self.leafView.previous()
+    self.leafView?.previous()
   }
   
   @objc func handleRandom() {
-    self.leafView.configure(currentIndex: 1)
+    self.leafView?.configure(currentIndex: 1)
   }
   
 }
