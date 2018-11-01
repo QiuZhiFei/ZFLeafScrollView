@@ -12,15 +12,15 @@ import KVOController
 
 class ViewController: UIViewController {
   
-  fileprivate let datasCount = 3
-  fileprivate let leafView = ZFLeafScrollView(frame: .zero)
+  fileprivate let datasCount = 30
+  
+  fileprivate let leafView = ZFLeafScrollView(frame: .zero, contentInset: UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25))
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     leafView.layer.borderColor = UIColor.red.cgColor
     leafView.layer.borderWidth = 1
-    leafView.configure(datasCount: 30)
+    leafView.configure(datasCount: datasCount)
     leafView.configure(startIndex: 2)
     
     self.view.addSubview(leafView)

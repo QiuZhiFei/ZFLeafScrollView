@@ -11,10 +11,7 @@ import UIKit
 import PureLayout
 
 fileprivate let minimumLineSpacing: CGFloat = 0
-fileprivate let contentInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
 fileprivate let ZFLeafScrollViewCellID = "ZFLeafScrollViewCellID"
-
-
 
 /// 移动方向
 ///
@@ -51,6 +48,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   
   fileprivate let flowLayout = ZFLeafLayout()
   fileprivate let collectionView: ZFLeafCollectionView
+  fileprivate var contentInset = UIEdgeInsets.zero
   
   fileprivate var itemsCount: Int = 0 // item 数量
   public fileprivate(set) var datasCount: Int = 0 // data 数量
@@ -60,7 +58,9 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   fileprivate var willBeginDraggingOffset: CGPoint = .zero
   fileprivate var oldIndex: Int = 0
   
-  override init(frame: CGRect) {
+  init(frame: CGRect, contentInset: UIEdgeInsets) {
+    self.contentInset = contentInset
+    
     flowLayout.scrollDirection = .horizontal
     flowLayout.minimumLineSpacing = minimumLineSpacing
     
