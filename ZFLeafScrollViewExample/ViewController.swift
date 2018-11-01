@@ -17,6 +17,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupMiniLeafView()
+    
     ////////////////////////////////////////////
     
     let datasCount = 30
@@ -34,7 +36,7 @@ class ViewController: UIViewController {
     self.leafView = leafView
     
     leafView.configure(datasCount: datasCount)
-    leafView.configure(startIndex: 2)
+    leafView.configure(startIndex: 1)
     
     ////////////////////////////////////////////
     
@@ -124,6 +126,64 @@ fileprivate extension ViewController {
   
   @objc func handleRandom() {
     self.leafView?.configure(currentIndex: 1)
+  }
+  
+}
+
+fileprivate extension ViewController {
+  
+  func setupMiniLeafView() {
+    let datasCount = 30
+    let contentInset = UIEdgeInsets.zero
+    
+    let flowLayout = ZFLeafLayout()
+    flowLayout.scrollDirection = .horizontal
+    flowLayout.minimumLineSpacing = 0
+    flowLayout.lineSpacing = 0
+    flowLayout.minAlpha = 1
+    
+    let leafView = ZFLeafScrollView(frame: .zero,
+                                    contentInset: contentInset,
+                                    flowLayout: flowLayout)
+    
+    leafView.configure(datasCount: datasCount)
+    leafView.configure(startIndex: 1)
+    
+    leafView.layer.borderColor = UIColor.red.cgColor
+    leafView.layer.borderWidth = 1
+    
+    self.view.addSubview(leafView)
+    let height: CGFloat = 44
+    leafView.autoPinEdge(toSuperviewEdge: .left)
+    leafView.autoPinEdge(toSuperviewEdge: .right)
+    leafView.autoPin(toTopLayoutGuideOf: self, withInset: 20)
+    leafView.autoSetDimension(.height,
+                              toSize: height)
+    
+    
+    /////////////
+    
+    leafView.scrollingEndedHandler = {
+      [weak self] (index, oldIndex, direction) in
+      guard let `self` = self else { return }
+      debugPrint("\(direction): \(oldIndex) to \(index)")
+    }
+    leafView.displayItemHandler = {
+      [weak self] (cell, index) in
+      guard let `self` = self else { return }
+      //      debugPrint("display index == \(index), cur == \(self.cy.currentIndex)")
+      if cell.itemView == nil {
+        let itemView = ZFCycleScrollItemView(frame: .zero)
+        cell.itemView = itemView
+        
+        cell.contentView.addSubview(itemView)
+        itemView.autoPinEdgesToSuperviewEdges(with: .zero)
+      }
+      if let itemView = cell.itemView as? ZFCycleScrollItemView {
+        itemView.configure(text: "\(index)")
+      }
+    }
+    
   }
   
 }
