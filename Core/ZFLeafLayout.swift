@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 
 private let maxScaleOffset: CGFloat = 200
-private let minAlpha: CGFloat = 0.3
 
 class ZFLeafLayout: UICollectionViewFlowLayout {
   
   // 静止时，item 横向间距
-  public var lineSpacing: CGFloat = 15
+  public var lineSpacing: CGFloat = 0
+  
+  public var minAlpha: CGFloat = 0.3
   
   override init() {
     super.init()

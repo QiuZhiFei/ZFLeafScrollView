@@ -25,6 +25,8 @@ class ViewController: UIViewController {
     let flowLayout = ZFLeafLayout()
     flowLayout.scrollDirection = .horizontal
     flowLayout.minimumLineSpacing = 0
+    flowLayout.lineSpacing = 15
+    flowLayout.minAlpha = 0.3
     
     let leafView = ZFLeafScrollView(frame: .zero,
                                     contentInset: contentInset,
