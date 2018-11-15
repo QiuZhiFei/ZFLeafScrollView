@@ -28,6 +28,9 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   public var scrollingEndedHandler: ((_ index: Int, _ oldIndex: Int, _ direction: ZFLeafDirection) -> ())?
   
   public var currentIndex: Int {
+    if self.datasCount < 1 {
+      return 0
+    }
     let row = (collectionView.contentOffset.x + contentInset.left)/self.flowLayout.itemSize.width
     let index = Int(row) % self.datasCount
     return index
@@ -188,14 +191,17 @@ extension ZFLeafScrollView {
   //Todo: 暂时根据足够多数据实现循环
   func configure(datasCount: Int) {
     self.datasCount = datasCount
-
-    // 取最大的偶数
-    var times = Int(Int16.max) / datasCount
-    if times % 2 != 0 {
-      times = times < 2 ? times : (times - 1)
+    
+    if (datasCount > 0) {
+      // 取最大的偶数
+      var times = Int(Int16.max) / datasCount
+      if times % 2 != 0 {
+        times = times < 2 ? times : (times - 1)
+      }
+      self.itemsCount = times * datasCount
+    } else {
+      self.itemsCount = Int(Int16.max)
     }
-      
-    self.itemsCount = times * datasCount
   }
   
   func configure(startIndex: Int) {
@@ -325,7 +331,10 @@ fileprivate extension ZFLeafScrollView {
   }
   
   func getIndex(indexPath: IndexPath) -> Int {
-    return indexPath.row % self.datasCount
+    if self.datasCount > 0 {
+      return indexPath.row % self.datasCount
+    }
+    return 0
   }
   
   func scrollToStartIndex() {
