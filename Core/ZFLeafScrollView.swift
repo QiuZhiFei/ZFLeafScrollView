@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import PureLayout
+import KVOController
 
 fileprivate let ZFLeafScrollViewCellID = "ZFLeafScrollViewCellID"
 
@@ -21,11 +22,19 @@ enum ZFLeafDirection {
   case right
 }
 
-class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
+enum ZFLeafScrollViewType {
+  case normal
+  case cyclic
+}
+
+@objcMembers class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
   
   public var displayItemHandler: ((_ cell: ZFLeafScrollViewCell, _ index: Int) -> ())?
   public var didSelectItemHandler: ((_ index: Int) -> ())?
   public var scrollingEndedHandler: ((_ index: Int, _ oldIndex: Int, _ direction: ZFLeafDirection) -> ())?
+  
+  // 仅作为业务数据标识
+  public var data: Any?
   
   public var currentIndex: Int {
     if self.datasCount < 1 {
@@ -48,6 +57,15 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
     return collectionView.isDecelerating
   }
   
+  public var isZFPagingEnabled: Bool {
+    set {
+      collectionView.isZFPagingEnabled = newValue
+    }
+    get {
+      return collectionView.isZFPagingEnabled
+    }
+  }
+  
   fileprivate let flowLayout: UICollectionViewFlowLayout
   fileprivate let collectionView: ZFLeafCollectionView
   fileprivate var contentInset = UIEdgeInsets.zero
@@ -55,6 +73,8 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
   fileprivate var itemsCount: Int = 0 // item 数量
   public fileprivate(set) var datasCount: Int = 0 // data 数量
   fileprivate var startIndex: Int = 0
+  fileprivate var cacheCurrentIndex: Int?
+  fileprivate var type: ZFLeafScrollViewType = .cyclic
   
   fileprivate var willEndDraggingOffset: CGPoint = .zero
   fileprivate var willBeginDraggingOffset: CGPoint = .zero
@@ -180,7 +200,7 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
     
     let nextPointeeX
-      = flowLayout.itemSize.width * CGFloat(next) - contentInset.left
+      = (flowLayout.itemSize.width + flowLayout.minimumLineSpacing) * CGFloat(next) - contentInset.left
     targetContentOffset.pointee = CGPoint(x: nextPointeeX, y: targetContentOffset.pointee.y)
   }
   
@@ -189,18 +209,24 @@ class ZFLeafScrollView: UIView, UICollectionViewDataSource, UICollectionViewDele
 extension ZFLeafScrollView {
   
   //Todo: 暂时根据足够多数据实现循环
-  func configure(datasCount: Int) {
+  func configure(datasCount: Int, type: ZFLeafScrollViewType = .cyclic) {
     self.datasCount = datasCount
+    self.type = type
     
-    if (datasCount > 0) {
-      // 取最大的偶数
-      var times = Int(Int16.max) / datasCount
-      if times % 2 != 0 {
-        times = times < 2 ? times : (times - 1)
+    switch type {
+    case .normal:
+      self.itemsCount = self.datasCount
+    case .cyclic:
+      if (datasCount > 0) {
+        // 取最大的偶数
+        var times = Int(Int16.max) / datasCount
+        if times % 2 != 0 {
+          times = times < 2 ? times : (times - 1)
+        }
+        self.itemsCount = times * datasCount
+      } else {
+        self.itemsCount = Int(Int16.max)
       }
-      self.itemsCount = times * datasCount
-    } else {
-      self.itemsCount = Int(Int16.max)
     }
   }
   
@@ -220,11 +246,19 @@ extension ZFLeafScrollView {
       return
     }
     
-    let item = self.itemsCount / 2 + index
-    let indexPath = IndexPath(item: item, section: 0)
-    collectionView.scrollToItem(at: indexPath,
-                                at: .centeredHorizontally,
-                                animated: animated)
+    var item: Int?
+    switch self.type {
+    case .normal:
+      item = index
+    case .cyclic:
+      item = self.itemsCount / 2 + index
+    }
+    if let item = item {
+      let indexPath = IndexPath(item: item, section: 0)
+      collectionView.scrollToItem(at: indexPath,
+                                  at: .centeredHorizontally,
+                                  animated: animated)
+    }
   }
   
   func next() {
@@ -273,8 +307,15 @@ extension ZFLeafScrollView {
     if self.currentIndex == currentIndex {
       return
     }
-    self.scrollToData(at: currentIndex, animated: false)
-    self.oldIndex = currentIndex
+    
+    let contentSize = collectionView.contentSize
+    if contentSize.width == 0 || contentSize.height == 0 {
+      // set currentIndex 时，kvoController contentsize 可能还没有执行
+      self.cacheCurrentIndex = currentIndex
+    } else {
+      self.scrollToData(at: currentIndex, animated: false)
+      self.oldIndex = currentIndex
+    }
   }
   
   func reloadData() {
@@ -295,7 +336,7 @@ fileprivate extension ZFLeafScrollView {
     }
     
     // 滚动速度
-    collectionView.decelerationRate = .fast
+    collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
     // 不接受 normal fast 之外的值
     //    collectionView.decelerationRate = UIScrollView.DecelerationRate(rawValue: 0.1)
     
@@ -316,7 +357,7 @@ fileprivate extension ZFLeafScrollView {
       .observe(collectionView,
                keyPath: "contentSize",
                options: [.new, .initial]) {
-                [weak self] (viewController, viewModel, change) in
+                [weak self] (observer, contentView, dict) in
                 guard let `self` = self else { return }
                 let contentSize = self.collectionView.contentSize
                 if contentSize.width == 0 {
@@ -326,7 +367,12 @@ fileprivate extension ZFLeafScrollView {
                   return
                 }
                 self.kvoController.unobserve(self.collectionView)
-                self.scrollToStartIndex()
+                
+                if let index = self.cacheCurrentIndex {
+                  self.configure(currentIndex: index)
+                } else {
+                  self.scrollToStartIndex()
+                }
     }
   }
   
@@ -338,11 +384,19 @@ fileprivate extension ZFLeafScrollView {
   }
   
   func scrollToStartIndex() {
-    if itemsCount > 0, self.startIndex < self.datasCount - 1 {
-      let indexPath = IndexPath(item: itemsCount / 2 + self.startIndex, section: 0)
-      collectionView.scrollToItem(at: indexPath,
-                                  at: .centeredHorizontally,
-                                  animated: false)
+    if itemsCount > 0, self.startIndex <= self.datasCount - 1 {
+      var indexPath: IndexPath?
+      switch self.type {
+      case .normal:
+        indexPath = IndexPath(item: self.startIndex, section: 0)
+      case .cyclic:
+        indexPath = IndexPath(item: itemsCount / 2 + self.startIndex, section: 0)
+      }
+      if let indexPath = indexPath {
+        collectionView.scrollToItem(at: indexPath,
+                                    at: .centeredHorizontally,
+                                    animated: false)
+      }
     }
   }
   

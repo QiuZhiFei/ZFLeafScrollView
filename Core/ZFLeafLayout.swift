@@ -11,12 +11,13 @@ import UIKit
 
 private let maxScaleOffset: CGFloat = 200
 
-class ZFLeafLayout: UICollectionViewFlowLayout {
+@objcMembers class ZFLeafLayout: UICollectionViewFlowLayout {
   
   // 静止时，item 横向间距
   public var lineSpacing: CGFloat = 0
   
   public var minAlpha: CGFloat = 0.3
+
   
   override init() {
     super.init()
@@ -60,7 +61,7 @@ class ZFLeafLayout: UICollectionViewFlowLayout {
     guard let collectionView = collectionView else {
       return proposedContentOffset
     }
-
+    
     let proposedRect = CGRect(x: proposedContentOffset.x,
                               y: 0,
                               width: collectionView.bounds.width,
@@ -68,12 +69,12 @@ class ZFLeafLayout: UICollectionViewFlowLayout {
     guard let layoutAttributes = layoutAttributesForElements(in: proposedRect) else {
       return proposedContentOffset
     }
-
+    
     var shouldBeChosenAttributes: UICollectionViewLayoutAttributes?
     var shouldBeChosenIndex: Int = -1
-
+    
     let proposedCenterX = proposedRect.midX
-
+    
     for (i, attributes) in layoutAttributes.enumerated() {
       guard attributes .representedElementCategory == .cell else {
         continue
@@ -115,6 +116,9 @@ fileprivate extension ZFLeafLayout {
   
   func centerScaledAttributes(attributes: UICollectionViewLayoutAttributes) {
     guard let collectionView = collectionView else {
+      return
+    }
+    if lineSpacing == 0 {
       return
     }
     let visibleRect = CGRect(x: collectionView.contentOffset.x,

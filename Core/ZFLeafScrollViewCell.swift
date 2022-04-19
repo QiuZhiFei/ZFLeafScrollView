@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import PureLayout
 
-public class ZFLeafScrollViewCell: UICollectionViewCell {
+@objcMembers public class ZFLeafScrollViewCell: UICollectionViewCell {
   
   public var itemView: UIView?
   
