@@ -198,24 +198,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/KVOController/KVOController.framework",
-				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
-				"${PODS_ROOT}/Reveal-SDK/RevealServer-4/iOS/RevealServer.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVOController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZFLeafScrollViewExample/Pods-ZFLeafScrollViewExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7BF294099D5FB7804937DB6D /* [CP] Check Pods Manifest.lock */ = {

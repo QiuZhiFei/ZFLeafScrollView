@@ -9,7 +9,7 @@ DEPENDENCIES:
   - Reveal-SDK (~> 4)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - KVOController
     - PureLayout
     - Reveal-SDK
@@ -21,4 +21,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 662ced901b012925c91b5b8db068fe4abd37882a
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.10.2
