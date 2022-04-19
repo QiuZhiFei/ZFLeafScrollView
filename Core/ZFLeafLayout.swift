@@ -38,7 +38,9 @@ private let maxScaleOffset: CGFloat = 200
     guard let result = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes else {
       return nil
     }
+    debugPrint("1 start")
     centerScaledAttributes(attributes: result)
+    debugPrint("1 end")
     return result
   }
   
@@ -49,9 +51,12 @@ private let maxScaleOffset: CGFloat = 200
     guard let _ = collectionView else {
       return result
     }
+    debugPrint("result count == \(result.count)")
+    debugPrint("2 start")
     for attributes in result {
       centerScaledAttributes(attributes: attributes)
     }
+    debugPrint("2 end")
     return result
   }
   
@@ -118,9 +123,6 @@ fileprivate extension ZFLeafLayout {
     guard let collectionView = collectionView else {
       return
     }
-    if lineSpacing == 0 {
-      return
-    }
     let visibleRect = CGRect(x: collectionView.contentOffset.x,
                              y: collectionView.contentOffset.y,
                              width: collectionView.bounds.size.width,
@@ -128,10 +130,23 @@ fileprivate extension ZFLeafLayout {
     let visibleCenterX = visibleRect.midX
     let distanceFromCenter = visibleCenterX - attributes.center.x
     let distance = min(abs(distanceFromCenter), maxScaleOffset)
-    let minScale: CGFloat = 1 - lineSpacing * 2 / itemSize.width
-    let scale = distance * (minScale - 1) / maxScaleOffset + 1
-    attributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
-    attributes.alpha = distance * (minAlpha - 1) / maxScaleOffset + 1
+    
+    
+    
+    let minScale: CGFloat = 137 / 177
+    
+    let width = attributes.frame.width - lineSpacing * 2
+    let height = attributes.frame.height
+    attributes.frame = CGRect(x: attributes.frame.origin.x,
+                              y: attributes.frame.origin.y,
+                              width: width,
+                              height: height)
+    
+//    let scale = distance * (minScale - 1) / maxScaleOffset + 1
+    debugPrint(attributes.frame)
+    
+//    attributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
+//    attributes.alpha = distance * (minAlpha - 1) / maxScaleOffset + 1
   }
   
 }

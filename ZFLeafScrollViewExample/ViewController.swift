@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     ////////////////////////////////////////////
     
     let datasCount = 30
-    let contentInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
+    let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     
     let flowLayout = ZFLeafLayout()
     flowLayout.scrollDirection = .horizontal
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     self.leafView = leafView
     
     leafView.configure(datasCount: datasCount)
-    leafView.configure(startIndex: 1)
+    leafView.configure(startIndex: 0)
     
     ////////////////////////////////////////////
     
@@ -139,7 +139,7 @@ fileprivate extension ViewController {
     let flowLayout = ZFLeafLayout()
     flowLayout.scrollDirection = .horizontal
     flowLayout.minimumLineSpacing = 0
-    flowLayout.lineSpacing = 0
+    flowLayout.lineSpacing = 15
     flowLayout.minAlpha = 1
     
     let leafView = ZFLeafScrollView(frame: .zero,
